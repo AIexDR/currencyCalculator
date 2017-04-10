@@ -1,0 +1,61 @@
+﻿<!doctype html>
+<html ng-app="AmazingStore">
+  <head>
+    <title>AmazingStore</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript" ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js" type="text/javascript"></script>
+
+    <script src="js/app.js" type="text/javascript"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+  </head>
+
+  <body>
+    <div class="container-fluid" ng-controller="StoreController">
+        <div class="row-fluid">
+            <div class="span10 offset1">
+                <div>
+                    <p class="text-info">
+                        Welcome to the Amazing Store.<br />
+                    </p>
+
+                    <label for="currencySelect">Select currency: </label>
+                    <select name="currencySelect" id="currencySelect" ng-options="option.name for option in data.currencyOptions  track by option.id" ng-model="data.selectedCurrency">
+                    </select>
+
+                    <table class="table table-bordered">
+                        <tr class="well">
+                            <td class="tdRight" colspan="4" >
+                                    <i class="icon-shopping-cart" />
+                                    <b>{{getTotalCount()}}</b> items, <b>{{getTotalConvertedPrice() | currency: data.selectedCurrency.symbol}}</b>
+                            </td>
+                        </tr>
+                        <tr ng-repeat="product in store.products | orderBy:'name' | filter:search" >
+                            <td class="tdCenter"><b>{{product.name}}</b></td>
+                            <td>
+                                {{product.description}}
+                            </td>
+                            <td class="tdRight">
+                                {{convertedPrice(product.price) | currency : data.selectedCurrency.symbol}}
+                            </td>
+                            <td class="tdCenter">
+                                <a href="" ng-click="addItem(product)">
+                                    add to cart
+                                </a>
+                            </td>
+                        </tr>
+                        <tr class="well">
+                            <td class="tdRight" colspan="4">
+                                    <i class="icon-shopping-cart" />
+                                    <b>{{getTotalCount()}}</b> items, <b>{{getTotalConvertedPrice() | currency : data.selectedCurrency.symbol}}</b>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+  </body>
+</html>
